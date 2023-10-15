@@ -1,44 +1,47 @@
-import java.util.*;
-public class Main {
-static int num;
-static int[][] a; //맵
-static boolean[][] vistied; //방문 횟수
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-	public static void main(String[] args) {
-		//배열 생성(값 입력)
-		Scanner sc = new Scanner(System.in);
-		//요솟값 입력
-		num = sc.nextInt();
-		a = new int[num][num];
-		
-		vistied = new boolean[num][num];
-		for (int i = 0; i < num; i++) {
-			for (int j = 0; j < num; j++)
-				a[i][j] = sc.nextInt();
+public class Main {
+
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringTokenizer st;
+	static int num; // 수
+	static int map[][]; // 맵 크기
+	static boolean[][] visited; // 방문 저장 배열
+
+	public static void main(String[] args) throws IOException {
+		st = new StringTokenizer(br.readLine());
+		num = Integer.parseInt(st.nextToken()); // 크기
+		map = new int[num][num]; // 배열 생성
+		visited = new boolean[num][num]; //방문 저장 배열
+		// 값 입력
+		for (int i = 0; i < map.length; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < map[i].length; j++)
+				map[i][j] = Integer.parseInt(st.nextToken());
 		}
-		
-		System.out.println(dfs(0,0));
+		System.out.println(dfs(0, 0));
+
 	}
 
 	private static String dfs(int x, int y) {
-		int count = a[x][y];
-		
-		vistied[x][y] = true;
-		//성공 (종료 조건)
+		int count = map[x][y];
+		visited[x][y] = true;
+		//성공 조건(종료)
 		if(count == -1) {
 			return "HaruHaru";
 		}
-		if(x + count < num && !vistied[x+count][y] && !dfs(x+count,y).equals("Hing")) {
+		//이동 조건
+		if (x+count < num && !visited[x+count][y] && !dfs(x+count,y).equals("Hing")) {
 			return "HaruHaru";
-		}
-		if(y+count < num && !vistied[x][y+count] && !dfs(x,y+count).equals("Hing")){
+		} //행
+		if(y+count < num && !visited[x][y+count] && !dfs(x,y+count).equals("Hing")) {
 			return "HaruHaru";
-		}
-		//실패(종료 조건)
-		return "Hing";
-		
-		
-	}
+		} //열
 
+		return "Hing";
+	}
 
 }
