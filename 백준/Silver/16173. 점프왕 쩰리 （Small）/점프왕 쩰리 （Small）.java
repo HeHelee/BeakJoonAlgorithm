@@ -1,47 +1,55 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int MAX = 3 + 100 + 10;
+    static int N;
+    static int [][] map;
+    static boolean [][] visited;
+    static int dirY[] = {1,0};
+    static int dirX[] = {0,1};
 
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static StringTokenizer st;
-	static int num; // 수
-	static int map[][]; // 맵 크기
-	static boolean[][] visited; // 방문 저장 배열
+    public static void main(String[] args) throws IOException {
+        //0.입력 및 초기화
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-	public static void main(String[] args) throws IOException {
-		st = new StringTokenizer(br.readLine());
-		num = Integer.parseInt(st.nextToken()); // 크기
-		map = new int[num][num]; // 배열 생성
-		visited = new boolean[num][num]; //방문 저장 배열
-		// 값 입력
-		for (int i = 0; i < map.length; i++) {
-			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < map[i].length; j++)
-				map[i][j] = Integer.parseInt(st.nextToken());
-		}
-		System.out.println(dfs(0, 0));
+        N = Integer.parseInt(br.readLine());
+        map = new int[MAX][MAX];
+        visited = new boolean[MAX][MAX];
 
-	}
+        //1.맵 정보 반영
+        for (int i = 1; i<=N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 1; j<=N; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
 
-	private static String dfs(int x, int y) {
-		int count = map[x][y];
-		visited[x][y] = true;
-		//성공 조건(종료)
-		if(count == -1) {
-			return "HaruHaru";
-		}
-		//이동 조건
-		if (x+count < num && !visited[x+count][y] && !dfs(x+count,y).equals("Hing")) {
-			return "HaruHaru";
-		} //행
-		if(y+count < num && !visited[x][y+count] && !dfs(x,y+count).equals("Hing")) {
-			return "HaruHaru";
-		} //열
+        //2. dfs수행
+        dfs(1,1);
 
-		return "Hing";
-	}
+        //3.출력
+        if(visited[N][N]) bw.write("HaruHaru");
+        else bw.write("Hing");
+
+        bw.close();
+        br.close();
+    }
+
+    private static void dfs(int y, int x) {
+        visited[y][x] = true;
+        int count = map[y][x];
+
+        for (int i = 0; i<2; i++) {
+            int newY = y + dirY[i] * count;
+            int newX = x + dirX[i] * count;
+            if (visited[newY][newX] == false) {
+                dfs(newY,newX);
+            }
+        }
+    }
+
 
 }
+
