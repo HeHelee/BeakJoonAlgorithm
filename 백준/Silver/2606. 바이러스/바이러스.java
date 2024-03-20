@@ -1,60 +1,53 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static int N; //컴퓨터 갯수
-	public static int M; //간선 갯수
-	public static boolean graph [][]; //연결 정보
-	public static boolean visit[]; //방문 배열
-	public static int answer; //답
-	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		//0. 입력 및 초기화
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		
-		N = Integer.parseInt(br.readLine());
-	    M = Integer.parseInt(br.readLine());
-	    
-		
-	    graph = new boolean[N+1][N+1];
-	    visit = new boolean[N+1];
-	    
-	    //1. graph에 연결 정보 채우기
-		int x, y;
-		for (int i = 0; i<M; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			x = Integer.parseInt(st.nextToken());
-			y = Integer.parseInt(st.nextToken());
-			graph[x][y] = true;
-			graph[y][x] = true;
-		}
-		
-		//2. dfs(재귀함수 호출)
-		dfs(1); //1번 컴퓨터부터 해주겠다.
-		
-		//3 출력
-		bw.write(String.valueOf(answer - 1)); //몇개의 컴퓨터가 감염이 됐는지
-		br.close();
-		bw.close();
-		
+    static int N,M;
+    static boolean map[][];
+    static boolean visited[];
+    static int answer;
 
-	}
+    public static void main(String[] args) throws IOException {
+        //0.입력 및 초기화
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-	private static void dfs(int depth) {
-		visit[depth] = true;
-		answer++;
-		
-		for (int i = 1; i<=N; i++) {
-			if (!visit[i] && graph[depth][i] == true) {
-				dfs(i);
-			}
-		}
-		
-	}
+        N = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
 
+        map = new boolean[N+1][N+1];
+        visited = new boolean[N+1];
+        answer = 0;
+
+        //1. 맵 정보 입력
+        for (int i = 1; i<=M; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            map[x][y] = true;
+            map[y][x] = true;
+        }
+
+        //2. dfs 호출
+        dfs(1);
+
+        //3. 답 출력
+        bw.write(String.valueOf(answer));
+        bw.close();
+        br.close();
+    }
+
+    private static void dfs(int depth) {
+        visited[depth] = true;
+
+
+        for (int i = 1; i<=N; i++) {
+            if(visited[i] == false && map[depth][i] == true) {
+                answer ++;
+                dfs(i);
+
+            }
+
+        }
+    }
 }
