@@ -14,7 +14,7 @@ public class Main {
         //출력
         StringBuilder sb = new StringBuilder();
         //3.반복문
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i<n; i++) {
             //4.명령어 입력 받기
             String[] command = br.readLine().split(" ");
 
@@ -49,9 +49,8 @@ public class Main {
                     }
                     break;
             }
+
         }
-        // 마지막 줄에는 개행 문자를 추가하지 않습니다.
         System.out.print(sb.toString().trim());
     }
 }
-
