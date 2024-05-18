@@ -23,9 +23,8 @@ public class Main {
 		Queue<Integer> q = new LinkedList<>();
 
 		q.offer(nodeIndex); // 큐에 저장
-		int index = nodeIndex;
 		int now = 0;
-		visited[index] = 1;
+		visited[nodeIndex] = 1;
 		while (!q.isEmpty()) {
 			now = q.poll(); // 팝
 
