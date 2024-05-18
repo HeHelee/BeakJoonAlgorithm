@@ -69,7 +69,6 @@ public class Main {
                 int ny = tmp.y + dy[i];
                 //5. 나가는 거 방지
                 if (nx >= 1 && nx <= N && ny >= 1 && ny <= M && board[nx][ny] == 1 && dis[nx][ny] == 0) {
-                    board[nx][ny] = 1;
                     q.offer(new Point(nx,ny));
                     dis[nx][ny] = dis[tmp.x][tmp.y] + 1;
                 }
