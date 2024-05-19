@@ -1,52 +1,62 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int visited[] = new int[100001];
-	static int N;
-	static int K;
+    static int N,K;
+    static int dis[] = new int[100000+10];
+    public static void main(String[] args) throws IOException {
+        //0.입력 및 초기화
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken()); // 수빈이 위치
-		K = Integer.parseInt(st.nextToken()); // 동생 위치
-	    int result = bfs(N);
-	    System.out.println(result);
-	}
+        N = Integer.parseInt(st.nextToken()); //나
+        K = Integer.parseInt(st.nextToken()); //동생
 
-	private static int bfs(int nodeIndex) {
-		Queue<Integer> q = new LinkedList<>();
+        //1.bfs 호출
+        int result = bfs(N);
 
-		q.offer(nodeIndex); // 큐에 저장
-		int now = 0;
-		visited[nodeIndex] = 1;
-		while (!q.isEmpty()) {
-			now = q.poll(); // 팝
+        //2.출력
+        bw.write(String.valueOf(result));
+        bw.close();
+        br.close();
 
-			if (now == K) {
-				return visited[now] - 1;
-			}
+    }
 
-			if (now-1 >= 0 && visited[now-1] == 0) {
-				visited[now - 1] = visited[now] + 1;
-				q.offer(now - 1);
-			}
-			if (now + 1 <= 100000 && visited[now+1]==0) {
-				visited[now + 1] = visited[now] + 1;
-				q.offer(now + 1);
-			}
-			if (now*2 <= 100000 && visited[now*2]==0) {
-				visited[now * 2] = visited[now] + 1;
-				q.offer(now * 2);
-			}
-			
-		}
-		return -1;
-	}
+    private static int bfs(int depth) {
+        //1.큐 생성
+        Queue<Integer> q = new LinkedList<>();
+        int now = 0;
+        //2.값 넣기
+        q.offer(depth);
+        //3.방문 처리를 함으로서 거리를 구함
+        dis[depth] = 1;
+        //3.팝
+        while(!q.isEmpty()) {
+            now = q.poll();
+            //now == K 랑 동일할 때
+            if (now == K) {
+                return dis[now]-1;
+            }
+            //x-1로 이동할 때
+            if(now-1 >= 0 && dis[now-1] == 0) {
+                dis[now-1] = dis[now]+1;
+                q.offer(now-1);
+            }
+            //x+1로 이동할 때
+            if(now+1 <= 100000 && dis[now+1] == 0){
+                dis[now+1] = dis[now]+1;
+                q.offer(now+1);
+            }
+            //2*X로 이동할 때
+            if(now*2 <= 100000 && dis[2*now] == 0) {
+                dis[now*2] = dis[now]+1;
+                q.offer(2*now);
 
+            }
+        }
+        return -1;
+    }
 }
