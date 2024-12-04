@@ -9,7 +9,7 @@ public class Main {
        } else if (money >= 1000) {
         System.out.println("mask");
        }else {
-        System.out.println(0);
+        System.out.println("no");
        }
     }
 }
