@@ -7,6 +7,9 @@ public class Main {
        if (n<0) {
         System.out.println(n);
         System.out.println("minus");
+       }else{
+        System.out.println(n);
        }
+      
     }
 }
