@@ -9,6 +9,8 @@ public class Main {
 
         if ((pAge1>=19 && pGender1.equals("M")) || (pAge2>=19 && pGender2.equals("M"))) {
             System.out.println(1);
+        }else {
+            System.out.println(0);
         }
     }
 }
