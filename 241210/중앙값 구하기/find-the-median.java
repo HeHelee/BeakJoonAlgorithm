@@ -17,12 +17,12 @@ public class Main {
             }
         }
         // b가 a보다 클 경우
-        // 8 9 7 or 8 9 10
+        // 22 26 30 or 22 26 21
         else {
             if (a <= c) {
-                System.out.println(b);
-            }else {
                 System.out.println(a);
+            }else {
+                System.out.println(b);
             }
 
 
