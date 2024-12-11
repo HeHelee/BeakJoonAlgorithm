@@ -12,7 +12,7 @@ public class Main {
             } else if (i % 10 == 3 || i % 6 == 6 || i % 9 == 9){
                 System.out.print(0 + " ");
             }else if (i / 10 == 3 || i / 10 == 6 || i / 10 == 9) {
-                System.out.print(0 + " ")
+                System.out.print(0 + " ");
             }
             else {
                 System.out.print(i + " ");
