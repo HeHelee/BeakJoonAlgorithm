@@ -6,7 +6,7 @@ public class Main {
         int a = sc.nextInt();
         int b = sc.nextInt();
 
-        for (int i = b; i >= a; i -= 2) {
+        for (int i = a; i >= b; i-=2) {
             System.out.print(i + " ");
         }
     }
