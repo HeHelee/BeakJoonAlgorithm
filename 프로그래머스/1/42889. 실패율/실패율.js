@@ -1,32 +1,24 @@
 function solution(N, stages) {
-    // 문제의 요지 : 실패율이 높은 스테이지부터 내림차순으로 스테이지 번호가 담긴 
-    // 배열을 반환해라
-    // 먼저 실패율을 구해야 할듯
-    // 실패율 구하는 법 :  클리어하지 못한 플레이어의 수 / 스테이지에 도달한 플레이어의 수
-    // 1. 각 스테이지별로 도달한 사람들의 수
+    var answer = [];
+    // 1. stages의 배열을 새롭게 정렬한다. 
     const challenge = new Array(N+2).fill(0);
-    for (stage of stages) {
+    for (const stage of stages) {
         challenge[stage] += 1;
     }
-    // 2. 클리어하지 못한 플레이어의 수
-    const fails = {};
+    // 2. stages에 참여하고 있는 처음 전체 인원 수를 구한다.
     let total = stages.length;
-    
-    // 3. 실패율 계산
+    // 2-1. 실패율 (인덱스, 값)을 담을 객체를 생성한다.
+    const obj = {};
+    // 3. 각각의 실패율을 구한다. (실패율 공식을 이용한다. 반복문)
     for (let i = 1; i <= N; i++) {
-        if (challenge[i] === 0) {
-            fails[i] = 0;
-            continue;
-        }
-        fails[i] = challenge[i]/total;
-      
-        //3-1 total을 갱신
-        total -= challenge[i];
+        const failure = challenge[i] / total;
+        //4. 실패율을 구해서 객체에 넣는다.
+        obj[i] = failure;
+        //5. 전체인원수 - 각 스테이지에 있는 사람 차감
+        total = total - challenge[i];
     }
-    // 4. 실패율이 높은 것부터 배열에 저장하기 (내림차순)
-    const result = Object.entries(fails)
-    .sort((a,b) => b[1] - a[1])
-    .map((item) => Number(item[0]));
-
-    return result;
+    // 5. 실패율 객체를 배열로 변환한 후 내림차순한다.
+    const newFailure = Object.entries(obj).sort((a,b) => b[1] - a[1]);
+    // 6. 각 인덱스의 번호를 출력한다. (객체를 이용해야 할듯)
+    return newFailure.map(item => parseInt(item[0]));
 }
