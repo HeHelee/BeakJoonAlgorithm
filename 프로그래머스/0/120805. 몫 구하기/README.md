@@ -1,6 +1,6 @@
 # [level 0] 몫 구하기 - 120805 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120805?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120805) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 11일 14:40:50
+2025년 12월 06일 11:49:32
 
 ### 문제 설명
 
